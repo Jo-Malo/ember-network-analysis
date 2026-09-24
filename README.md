@@ -12,13 +12,20 @@ The interactive map shows Ember's routes and stops overlaid on a population heat
 
 Ember's current network connects Scotland's major cities well: Edinburgh, Glasgow, Dundee, Aberdeen, Inverness and Fort William are all served, with good coverage of the central belt corridor. Stirling and Falkirk are served as stops on existing routes.
 
+Scottish Citylink stops are also plotted in blue, providing a reference point for existing intercity coach provision across Scotland.
+
 Two gaps stand out when population density is overlaid:
 
 ### 1. The Ayrshire coast: Glasgow to Ayr via Kilmarnock, Irvine and Saltcoats
 
-The Ayrshire coast represents one of the most densely populated unserved corridors in Scotland. Kilmarnock (46,000), Irvine (33,000), Saltcoats and Ayr (47,000) form a continuous population corridor south of Glasgow with strong existing travel demand evidenced by ScotRail usage on the same corridor.
+The Ayrshire coast represents one of the most densely populated unserved corridors in Scotland for zero-emission intercity coach travel. Kilmarnock (46,000), Irvine (33,000), Saltcoats and Ayr (47,000) form a continuous population corridor south of Glasgow with a combined catchment of over 150,000 people.
 
-An Ember route connecting Glasgow to Ayr, stopping at Kilmarnock, Irvine and Saltcoats would serve a combined catchment population of over 150,000 people currently without an intercity electric coach option. Journey times would be competitive with rail on this corridor, and the charging infrastructure requirements are manageable given the proximity to Glasgow.
+Scottish Citylink already operates on this corridor but with limited stop coverage, visible on the map as sparse blue dots along the coast, suggesting proven demand but underserved capacity. An Ember route connecting Glasgow to Ayr via Kilmarnock, Irvine and Saltcoats would offer more frequent, zero-emission service on a corridor where demand is already established, rather than relying on untested assumptions about ridership.
+
+Journey times would be competitive with rail on this corridor, and the 
+charging infrastructure requirements are manageable given the proximity 
+to Glasgow.
+
 
 ### 2. Motherwell and Hamilton: South Lanarkshire's missing link
 
@@ -28,7 +35,7 @@ Rather than a standalone route, Motherwell and Hamilton could be incorporated as
 
 ## Methodology
 
-- **Route and stop data:** UK Bus Open Data Service (GTFS format), filtered to Ember operator code OP965
+- **Route and stop data:** UK Bus Open Data Service (GTFS format), filtered to Ember operator code OP965. Scottish Citylink stops also plotted for competitive context, filtered from the same GTFS dataset using agency code OP545.
 - **Population data:** National Records of Scotland Small Area Population Estimates 2024, Data Zone Centroids 2022
 - **Tools:** Python, Pandas, GeoPandas, Folium
 - **Map:** Interactive HTML, hosted on GitHub Pages
