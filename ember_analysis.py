@@ -11,7 +11,7 @@ stops = pd.read_csv('gtfs_all/stops.txt')
 stop_times = pd.read_csv('gtfs_all/stop_times.txt')
 shapes = pd.read_csv('gtfs_all/shapes.txt')
 
-# Filter to Ember only
+# Filter to Ember only (agency_id = OP965)
 ember_routes = routes[routes['agency_id'] == 'OP965']
 ember_trips = trips[trips['route_id'].isin(ember_routes['route_id'])]
 ember_shape_ids = ember_trips['shape_id'].unique()
@@ -21,6 +21,14 @@ ember_stop_ids = ember_stop_times['stop_id'].unique()
 ember_stops = stops[stops['stop_id'].isin(ember_stop_ids)]
 
 print(f"Ember routes: {len(ember_routes)}, Stops: {len(ember_stops)}")
+
+# Filter to Scottish Citylink (OP545)
+citylink_routes = routes[routes['agency_id'] == 'OP545']
+citylink_trips = trips[trips['route_id'].isin(citylink_routes['route_id'])]
+citylink_shape_ids = citylink_trips['shape_id'].unique()
+citylink_shapes = shapes[shapes['shape_id'].isin(citylink_shape_ids)]
+
+print(f"Citylink routes found: {len(citylink_routes)}")
 
 # ── Load population data ─────────────────────────────────────────
 print("Loading population data...")
@@ -47,6 +55,22 @@ HeatMap(
     blur=25,
     gradient={0.2: 'blue', 0.4: 'lime', 0.6: 'yellow', 0.8: 'orange', 1.0: 'red'}
 ).add_to(m)
+
+# Citylink stops — blue dots
+citylink_stop_times = stop_times[stop_times['trip_id'].isin(citylink_trips['trip_id'])]
+citylink_stop_ids = citylink_stop_times['stop_id'].unique()
+citylink_stops = stops[stops['stop_id'].isin(citylink_stop_ids)]
+
+for _, stop in citylink_stops.iterrows():
+    folium.CircleMarker(
+        location=[stop['stop_lat'], stop['stop_lon']],
+        radius=3,
+        color='#4A90D9',
+        fill=True,
+        fill_color='#4A90D9',
+        fill_opacity=0.7,
+        popup=folium.Popup(f"Citylink: {stop['stop_name']}", max_width=200)
+    ).add_to(m)
 
 # Ember route shapes
 for shape_id in ember_shape_ids:
@@ -82,7 +106,7 @@ background-color: white; padding: 10px 15px; border-radius: 5px;
 box-shadow: 2px 2px 6px rgba(0,0,0,0.3); font-family: Arial;">
 <h4 style="margin:0; color: #007E33;">🚌 Ember Network vs Population — Scotland</h4>
 <p style="margin:4px 0 0 0; font-size:12px; color:#555;">
-White lines = Ember routes &nbsp;|&nbsp; Green dots = stops
+White lines = Ember routes &nbsp;|&nbsp; Blue dots = Scottish Citylink stops &nbsp;|&nbsp; Green dots = Ember stops
 </p>
 </div>
 
